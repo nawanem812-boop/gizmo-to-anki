@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gizmo → Anki</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+</head>
+<body>
+<header><div class="logo">Gizmo<span>→</span>Anki</div></header>
+<main>
+  <section class="card">
+    <h1>Turn your Gizmo folders into Anki decks</h1>
+    <p class="muted">Everything runs in your browser. Nothing is uploaded.</p>
+
+    <label>1 · Gizmo folder link</label>
+    <div class="row">
+      <input id="link" type="url" placeholder="https://gizmo.ai/…">
+      <button id="open" class="ghost">Open</button>
+    </div>
+    <p class="hint">Gizmo has no export and its shared links can't be read from another site. Open the link, copy the cards, paste them below.</p>
+
+    <label>2 · Paste cards</label>
+    <textarea id="text" rows="11" placeholder="# Folder name&#10;term &#9; definition&#10;term :: definition&#10;&#10;# Another folder::Sub-deck&#10;term | definition"></textarea>
+    <p class="hint">One card per line (tab, <code>::</code>, <code>|</code> or <code>;</code>). A line starting with <code>#</code> starts a new deck (use <code>::</code> for sub-decks).</p>
+
+    <label>or import files <span class="muted">(each file = one deck)</span></label>
+    <input id="files" type="file" accept=".csv,.tsv,.txt" multiple>
+
+    <label>Parent deck <span class="muted">(optional)</span></label>
+    <input id="root" type="text" placeholder="e.g. IFSI S1">
+
+    <div class="row end">
+      <button id="convert">Preview</button>
+    </div>
+  </section>
+
+  <section class="card" id="result" hidden>
+    <h2>Preview</h2>
+    <div id="decks"></div>
+    <div class="row">
+      <button id="apkg">Download .apkg</button>
+      <button id="csv" class="ghost">Download .csv</button>
+    </div>
+    <p id="status" class="hint"></p>
+  </section>
+</main>
+<script src="anki.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
